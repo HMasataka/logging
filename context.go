@@ -15,11 +15,11 @@ func WithValue(parent context.Context, key string, val any) context.Context {
 	}
 
 	if v, ok := parent.Value(loggingKey).(*sync.Map); ok {
-		mapCopy := copySyncMap(v)
+		// https://github.com/PumpkinSeed/slog-context/issues/5
+		c := copySyncMap(v)
+		c.Store(key, val)
 
-		mapCopy.Store(key, val)
-
-		return context.WithValue(parent, loggingKey, mapCopy)
+		return context.WithValue(parent, loggingKey, c)
 	}
 
 	v := &sync.Map{}
