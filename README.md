@@ -159,3 +159,7 @@ func processRequest(ctx context.Context) {
 
 - Go 1.25.1以上
 - [Task](https://taskfile.dev/)
+
+## ライセンス
+
+このプロジェクトはMITライセンスの下で公開されています。詳細については[LICENSE](./LICENSE)ファイルを参照してください。
