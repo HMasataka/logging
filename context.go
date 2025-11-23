@@ -28,6 +28,30 @@ func WithValue(parent context.Context, key string, val any) context.Context {
 	return context.WithValue(parent, loggingKey, v)
 }
 
+// HasLoggingContext contextにlogging用のSyncMapが含まれているかどうかを確認します
+func HasLoggingContext(ctx context.Context) bool {
+	if ctx == nil {
+		return false
+	}
+
+	_, ok := ctx.Value(loggingKey).(*sync.Map)
+	return ok
+}
+
+// HasValue contextに指定されたキーの値が存在するかどうかを確認します
+func HasValue(ctx context.Context, key string) bool {
+	if ctx == nil {
+		return false
+	}
+
+	if v, ok := ctx.Value(loggingKey).(*sync.Map); ok {
+		_, exists := v.Load(key)
+		return exists
+	}
+
+	return false
+}
+
 func copySyncMap(m *sync.Map) *sync.Map {
 	var cp sync.Map
 
