@@ -32,4 +32,5 @@ func A() {
 
 func B(ctx context.Context) {
 	slog.ErrorContext(ctx, "this is an error")
+	slog.InfoContext(ctx, "this is info")
 }
